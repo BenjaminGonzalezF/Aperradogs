@@ -1,26 +1,55 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-app-bar app color="cyan darken-1">
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-items><v-img class="logo" /></v-toolbar-items>
+      <v-toolbar-title>
+        <h4>Aperradogs</h4>
+      </v-toolbar-title>
+    </v-app-bar>
+    <router-view></router-view>
+
+    <!-- Footer -->
+    <template>
+      <v-footer padless >
+        <v-card  width="100%" flat tile class="cyan darken-1 dark text-center" >
+          <v-card-text>
+            <v-btn v-for="icono in iconos" :key="icono" class="mx-4 white--text" icon>
+              <v-icon size="24px">{{icono}}</v-icon>
+            </v-btn>
+          </v-card-text>
+          
+          <v-divider/>
+
+          <v-card-text class="white-text">
+            {{new Date().getFullYear()}} - <strong>Aperadogs S.A</strong>
+          </v-card-text>
+          
+        </v-card>
+      </v-footer>
+    </template>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Login from './views/Login.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data: () => ({
+      iconos: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ],
+    }),
+};
 </script>
 
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  h4{
+    color:white;
+  }
 </style>

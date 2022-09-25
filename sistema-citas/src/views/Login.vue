@@ -5,8 +5,11 @@
     <v-card width="500px" class="mx-auto mt-15">
       <v-card-title>Credenciales</v-card-title>
       <v-card-text>
-        <v-text-field label="E-mail" prepend-icon="mdi-account-circle"/>
+        <v-text-field label="E-mail" v-model="loginEmail" prepend-icon="mdi-account-circle" 
+/>
         <v-text-field
+        
+        v-model="loginPassword"
         label="Contraseña"
         :type="$store.state.mostrarPass ? 'text' : 'password'"
         prepend-icon="mdi-lock"
@@ -16,7 +19,7 @@
 
       <!-- Boton para entrar -->
       <v-card-actions>
-        <v-btn disabled color="success" class="mx-auto my-4" de>Iniciar Sesión</v-btn>
+        <v-btn v-on:click="login" color="success" class="mx-auto my-4" de>Iniciar Sesión</v-btn>
         <v-btn color="primary" class="mx-auto my-4" @click="$store.state.dialog=true">Registrarse</v-btn>
       </v-card-actions>
     </v-card>
@@ -95,6 +98,7 @@
               class="mr-4"
               text
               @click="validate"
+              v-on:click="register" 
               >Enviar</v-btn><!-- Acá deberia conectar con el back -->
             </v-spacer>
           </v-card-actions>
@@ -107,8 +111,12 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
+
     data: () => ({
+      loginEmail: '',
+      loginPassword: '',
       valid: true,
       nombre: '',
       nombreRules: [
@@ -127,6 +135,7 @@
       passRules: [
           v => !!v || 'Contraseña es requerida',
       ],
+      confirmarPass: '',
     }),
       
     methods:{
@@ -146,6 +155,37 @@
             alert("Las contraseñas deben coincidir")
           }
         },
+        login(){
+          console.log(this.loginEmail)
+          console.log(this.loginPassword)
+
+          axios.post('http://localhost:3000/login', {
+            email: this.loginEmail,
+            password: this.loginPassword
+          }).then((res)=>{
+            if(res.status == 200){
+              console.log(res.data)
+              this.loginEmail = JSON.stringify(res.data.user)
+              
+
+              // save token and user in local storage
+              localStorage.setItem('token', res.data.token)
+              localStorage.setItem('user', JSON.stringify(res.data.user))
+
+              // move to home page
+              this.$router.push('/')
+
+            }
+          }).catch((err)=>{
+            console.log(err)
+          })
+
+        },
+        register(){
+          console.log(this.email)
+          console.log(this.pass)
+
+        }
     }
   }
 </script>

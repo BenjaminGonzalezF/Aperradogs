@@ -1,8 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="cyan darken-1">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-items><v-img class="logo" /></v-toolbar-items>
+      <v-toolbar-items></v-toolbar-items>
       <v-toolbar-title>
         <h4>Aperradogs</h4>
       </v-toolbar-title>
@@ -11,7 +10,7 @@
 
     <!-- Footer -->
     <template>
-      <v-footer padless >
+      <v-footer padless absolute>
         <v-card  width="100%" flat tile class="cyan darken-1 dark text-center" >
           <v-card-text>
             <v-btn v-for="icono in iconos" :key="icono" class="mx-4 white--text" icon>
@@ -37,13 +36,13 @@ import Login from './views/Login.vue';
 export default {
   name: 'App',
   data: () => ({
-      iconos: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
-      ],
-    }),
+    iconos: [
+      'mdi-facebook',
+      'mdi-twitter',
+      'mdi-linkedin',
+      'mdi-instagram',
+    ],
+  }),
 };
 </script>
 

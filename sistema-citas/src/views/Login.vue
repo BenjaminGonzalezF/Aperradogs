@@ -172,8 +172,8 @@
               localStorage.setItem('token', res.data.token)
               localStorage.setItem('user', JSON.stringify(res.data.user))
 
-              // move to home page
-              this.$router.push('/')
+              // move to home usuario view
+              this.$router.push('/usuario')
 
             }
           }).catch((err)=>{

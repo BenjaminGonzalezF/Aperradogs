@@ -39,7 +39,7 @@
               <v-row>
                 <v-col cols="3" md="6">
                   <v-text-field
-                  v-model="nombre"
+                  v-model="nombreRegistro"
                   :rules="nombreRules"
                   label="Nombre"
                   required
@@ -48,7 +48,7 @@
 
                 <v-col cols="2" md="6">
                   <v-text-field
-                  v-model="apellido"
+                  v-model="apellidoRegistro"
                   :rules="apellidoRules"
                   label="Apellido"
                   required
@@ -58,7 +58,7 @@
             <v-row>
               <v-col >
                 <v-text-field
-                v-model="email"
+                v-model="emailRegistro"
                 :rules="emailRules"
                 label="E-mail"
                 required
@@ -68,14 +68,14 @@
             <v-row>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="pass"
+                v-model="passRegistro"
                 :rules="passRules"
                 label="Contraseña"
                 ></v-text-field>
               </v-col>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="confirmarPass"
+                v-model="confirmarPassRegistro"
                 :rules="passRules"
                 label="Confirmar Contraseña"
                 ></v-text-field>
@@ -97,8 +97,7 @@
               color="blue darken-1"
               class="mr-4"
               text
-              @click="validate"
-              v-on:click="register" 
+              @click="validate" 
               >Enviar</v-btn><!-- Acá deberia conectar con el back -->
             </v-spacer>
           </v-card-actions>
@@ -115,23 +114,23 @@
   export default {
 
     data: () => ({
-      loginEmail: '',
-      loginPassword: '',
+      loginEmail: '',emailRegistro:'',
+      loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
-      nombre: '',
+      nombreRegistro: '',
       nombreRules: [
           v => !!v || 'Nombre es requerido',
       ],
-      apellido: '',
+      apellidoRegistro: '',
       apellidoRules: [
           v => !!v || 'apellido es requerido',
       ],
-      email: '',
+      emailRegistro: '',
       emailRules: [
           v => !!v || 'E-mail es requerido',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      pass: '',
+      passRegistro: '',
       passRules: [
           v => !!v || 'Contraseña es requerida',
       ],
@@ -139,17 +138,24 @@
     }),
       
     methods:{
+      register(){
+          console.log(this.emailRegistro)
+          console.log(this.passRegistro)
+          console.log(this.nombreRegistro)
+          console.log(this.apellidoRegistro)
+
+        },
         /* Validacion formulario registro */
         validate () {
-          if((this.pass == this.confirmarPass)){
+          if((this.passRegistro == this.confirmarPassRegistro)){
             this.$store.state.dialog=false
-            this.$refs.form.validate()
-            /* limpiar variables */
-            this.nombre=""
-            this.apellido=""
-            this.email=""
-            this.pass=""
-            this.confirmarPass=""
+            //this.$refs.form.validate()
+            this.register()
+            this.emailRegistro = ""
+            this.passRegistro = ""
+            this.nombreRegistro = ""
+            this.apellidoRegistro = ""
+            this.confirmarPass = ""
           }
           else{
             alert("Las contraseñas deben coincidir")
@@ -179,11 +185,6 @@
           }).catch((err)=>{
             console.log(err)
           })
-
-        },
-        register(){
-          console.log(this.email)
-          console.log(this.pass)
 
         }
     }

@@ -8,5 +8,7 @@ export default function initUsers(app){
     app.delete("/usuario", userController.deleteUser);
 
     app.post("/login", authController.login);
+    app.post("/registro", authController.registro);
+
     app.get("/", testController.test);
 }

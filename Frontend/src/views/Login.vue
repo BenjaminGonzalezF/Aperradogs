@@ -104,6 +104,11 @@
         </v-card>
       </v-dialog>
     </v-row>
+    
+    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
+    </v-alert>
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
+    </v-alert>
   </v-content>
 
   
@@ -112,8 +117,9 @@
 <script>
   import axios from 'axios';
   export default {
-
+    
     data: () => ({
+      notificacionExitosa: false,notificacionNoExitosa: false,
       loginEmail: '',emailRegistro:'',
       loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
@@ -139,10 +145,27 @@
       
     methods:{
       register(){
-          console.log(this.emailRegistro)
-          console.log(this.passRegistro)
-          console.log(this.nombreRegistro)
-          console.log(this.apellidoRegistro)
+        
+          axios.post('http://localhost:3000/registro', {
+            email: this.emailRegistro,
+            password: this.passRegistro,
+            nombre: this.nombreRegistro,
+            apellido: this.apellidoRegistro
+
+          }).then((res)=>{
+            if(res.status == 200){
+              console.log(res.data)
+              console.log("Usuario registrado en el servidor")
+              this.notificacionExitosa = true
+
+            }
+          }).catch((err)=>{
+            console.log(err)
+            console.log(err.res)
+            this.notificacionNoExitosa = true
+
+          })
+
 
         },
         /* Validacion formulario registro */
@@ -155,7 +178,7 @@
             this.passRegistro = ""
             this.nombreRegistro = ""
             this.apellidoRegistro = ""
-            this.confirmarPass = ""
+            this.confirmarPassRegistro = ""
           }
           else{
             alert("Las contraseñas deben coincidir")

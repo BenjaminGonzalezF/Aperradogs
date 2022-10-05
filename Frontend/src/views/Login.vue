@@ -9,6 +9,7 @@
 />
         <v-text-field
         
+        
         v-model="loginPassword"
         label="Contraseña"
         :type="$store.state.mostrarPass ? 'text' : 'password'"

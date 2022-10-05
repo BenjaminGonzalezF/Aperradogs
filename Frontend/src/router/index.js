@@ -27,13 +27,18 @@ const routes = [
     component: Principal
   },
   {
-    path: '/login',
+    path: '/ingreso',
     name: 'login',
     component: () => import('../views/Login.vue')
-  },
+  },{
     path: '/usuario',
     name: 'usuario',
     component: () => import('../views/VistaUsuario.vue')
+  },
+  ,{
+    path: '/mascotas',
+    name: 'mascotas',
+    component: () => import('../components/PrincipalUsuario/Mascota.vue')
   },
 ]
 const router = new VueRouter({

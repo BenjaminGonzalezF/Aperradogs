@@ -5,8 +5,11 @@
     <v-card width="500px" class="mx-auto mt-15">
       <v-card-title>Credenciales</v-card-title>
       <v-card-text>
-        <v-text-field label="E-mail" prepend-icon="mdi-account-circle"/>
+        <v-text-field label="E-mail" v-model="loginEmail" prepend-icon="mdi-account-circle" 
+/>
         <v-text-field
+        
+        v-model="loginPassword"
         label="Contraseña"
         :type="$store.state.mostrarPass ? 'text' : 'password'"
         prepend-icon="mdi-lock"
@@ -16,7 +19,7 @@
 
       <!-- Boton para entrar -->
       <v-card-actions>
-        <v-btn disabled color="success" class="mx-auto my-4" de>Iniciar Sesión</v-btn>
+        <v-btn v-on:click="login" color="success" class="mx-auto my-4" de>Iniciar Sesión</v-btn>
         <v-btn color="primary" class="mx-auto my-4" @click="$store.state.dialog=true">Registrarse</v-btn>
       </v-card-actions>
     </v-card>
@@ -36,7 +39,7 @@
               <v-row>
                 <v-col cols="3" md="6">
                   <v-text-field
-                  v-model="nombre"
+                  v-model="nombreRegistro"
                   :rules="nombreRules"
                   label="Nombre"
                   required
@@ -45,7 +48,7 @@
 
                 <v-col cols="2" md="6">
                   <v-text-field
-                  v-model="apellido"
+                  v-model="apellidoRegistro"
                   :rules="apellidoRules"
                   label="Apellido"
                   required
@@ -55,7 +58,7 @@
             <v-row>
               <v-col >
                 <v-text-field
-                v-model="email"
+                v-model="emailRegistro"
                 :rules="emailRules"
                 label="E-mail"
                 required
@@ -65,14 +68,14 @@
             <v-row>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="pass"
+                v-model="passRegistro"
                 :rules="passRules"
                 label="Contraseña"
                 ></v-text-field>
               </v-col>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="confirmarPass"
+                v-model="confirmarPassRegistro"
                 :rules="passRules"
                 label="Confirmar Contraseña"
                 ></v-text-field>
@@ -94,58 +97,119 @@
               color="blue darken-1"
               class="mr-4"
               text
-              @click="validate"
+              @click="validate" 
               >Enviar</v-btn><!-- Acá deberia conectar con el back -->
             </v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
+    
+    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
+    </v-alert>
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
+    </v-alert>
   </v-content>
 
   
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
+    
     data: () => ({
+      notificacionExitosa: false,notificacionNoExitosa: false,
+      loginEmail: '',emailRegistro:'',
+      loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
-      nombre: '',
+      nombreRegistro: '',
       nombreRules: [
           v => !!v || 'Nombre es requerido',
       ],
-      apellido: '',
+      apellidoRegistro: '',
       apellidoRules: [
           v => !!v || 'apellido es requerido',
       ],
-      email: '',
+      emailRegistro: '',
       emailRules: [
           v => !!v || 'E-mail es requerido',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      pass: '',
+      passRegistro: '',
       passRules: [
           v => !!v || 'Contraseña es requerida',
       ],
+      confirmarPass: '',
     }),
       
     methods:{
+      register(){
+        
+          axios.post('http://localhost:3000/registro', {
+            email: this.emailRegistro,
+            password: this.passRegistro,
+            nombre: this.nombreRegistro,
+            apellido: this.apellidoRegistro
+
+          }).then((res)=>{
+            if(res.status == 200){
+              console.log(res.data)
+              console.log("Usuario registrado en el servidor")
+              this.notificacionExitosa = true
+
+            }
+          }).catch((err)=>{
+            console.log(err)
+            console.log(err.res)
+            this.notificacionNoExitosa = true
+
+          })
+
+
+        },
         /* Validacion formulario registro */
         validate () {
-          if((this.pass == this.confirmarPass)){
+          if((this.passRegistro == this.confirmarPassRegistro)){
             this.$store.state.dialog=false
-            this.$refs.form.validate()
-            /* limpiar variables */
-            this.nombre=""
-            this.apellido=""
-            this.email=""
-            this.pass=""
-            this.confirmarPass=""
+            //this.$refs.form.validate()
+            this.register()
+            this.emailRegistro = ""
+            this.passRegistro = ""
+            this.nombreRegistro = ""
+            this.apellidoRegistro = ""
+            this.confirmarPassRegistro = ""
           }
           else{
             alert("Las contraseñas deben coincidir")
           }
         },
+        login(){
+          console.log(this.loginEmail)
+          console.log(this.loginPassword)
+
+          axios.post('http://localhost:3000/login', {
+            email: this.loginEmail,
+            password: this.loginPassword
+          }).then((res)=>{
+            if(res.status == 200){
+              console.log(res.data)
+              this.loginEmail = JSON.stringify(res.data.user)
+              
+
+              // save token and user in local storage
+              localStorage.setItem('token', res.data.token)
+              localStorage.setItem('user', JSON.stringify(res.data.user))
+
+              // move to home usuario view
+              this.$router.push('/usuario')
+
+            }
+          }).catch((err)=>{
+            console.log(err)
+          })
+
+        }
     }
   }
 </script>

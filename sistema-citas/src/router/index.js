@@ -1,23 +1,36 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../components/Home.vue'
+import Nosotros from '../components/Nosotros.vue'
+import InicioSesion from '../components/InicioSesion.vue'
+import Principal from '../components/Principal.vue'
+
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../views/Home.vue')
+    name: 'Home',
+    component: Home
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/Login.vue')
+    path: '/nosotros',
+    name: 'Nosotros',
+    component: Nosotros
   },
   {
-    path: '/registrarse',
-    name: 'registrarse',
-    component: () => import('../views/Registrarse.vue')
+    path: '/Iniciosesion',
+    name: 'InicioSesion',
+    component: InicioSesion
   },
+
+  {
+    path: '/Principal',
+    name: 'Principal',
+    component: Principal
+  },
+  
 ]
 
 const router = new VueRouter({

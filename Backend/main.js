@@ -1,17 +1,27 @@
 import express from 'express'
-import {initRouters} from './router/main.js'
-// import cors
+import { initRouters } from './router/main.js'
 import cors from 'cors'
-const app = express()
-
 import mongoose from "mongoose";
 import dotnev from "dotenv";
+
+const app = express()
 dotnev.config();
 const uri = `${process.env.BASE_DE_DATOS}`;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, {
+  keepAlive: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
-const TestSchema = new mongoose.Schema({   text: String, });
+/*const TestSchema = new mongoose.Schema({   text: String, });
 const Test = mongoose.model("Test", TestSchema);
+let usuario = new Test({ text: 'asdc' });
+usuario.save();
+*/
+
+import { guardarCliente } from './controllers/clientes.js'
+guardarCliente();
+
 
 app.use(cors())
 app.use(express.json())

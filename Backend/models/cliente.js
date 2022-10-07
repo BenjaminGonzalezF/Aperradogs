@@ -19,8 +19,12 @@ var Clientes = new mongoose.Schema(
             required: true,
 
         }
+    },
+    {
+        collection : 'Clientes',
+        versionKey: false
     }
 )
 
-export const cliente = new mongoose.model('Cliente', Clientes);
+export const cliente = new mongoose.model('Clientes', Clientes);
 

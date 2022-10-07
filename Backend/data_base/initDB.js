@@ -5,7 +5,7 @@ dotnev.config();
 
 const DB_URI = `${process.env.BASE_DE_DATOS}`;
 
-export const initDB  = () => {
+const initDB = () => {
 
     const connect = () => {
 
@@ -30,3 +30,5 @@ export const initDB  = () => {
     connect();
 
 }
+
+export default initDB;

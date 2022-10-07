@@ -1,6 +1,6 @@
 import { cliente } from "../models/cliente.js";
 
-const cliente1 = new cliente({
+const user = new cliente({
     Nombre: 'Test',
     Apellido: 'Test',
     Email: 'Test',
@@ -8,8 +8,18 @@ const cliente1 = new cliente({
 });
 
 const guardarCliente = () => {
-    cliente1.save();
-    console.log(cliente1);
+    user.save();
+    console.log("Cliente guardado");
 };
 
-export { guardarCliente };
+const mostrarClientes = () => {
+    cliente.find({}, (err, Clientes) => {
+        if (err) {
+            console.log('Error al mostrar los clientes');
+        } else {
+            console.log(Clientes);
+        }
+    });
+};
+
+export { guardarCliente, mostrarClientes };

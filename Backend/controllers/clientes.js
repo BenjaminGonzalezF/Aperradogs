@@ -1,13 +1,5 @@
 import { cliente } from "../models/cliente.js";
-
-
-/*const user = new cliente({
-    Nombre: 'Test',
-    Apellido: 'Test',
-    Email: 'Test',
-    Contrasena: 'Test',
-});
-*/
+import * as jwtController from "./../jwt.js";
 
 const guardarCliente = (nuevoCliente) => {
     const client = new cliente({
@@ -18,7 +10,7 @@ const guardarCliente = (nuevoCliente) => {
 
     })
     client.save();
-    console.log("Cliente guardado");    
+    console.log("Cliente guardado");
 };
 
 const mostrarClientes = () => {
@@ -30,21 +22,31 @@ const mostrarClientes = () => {
         }
     });
 };
-// compare the email with the of other emails users  in the database;
 
 
-
-async function  verificarCorreo(nuevoCliente){
+async function verificarCorreo(nuevoCliente) {
     let correo = nuevoCliente.email;
 
-    let client = await cliente.findOne({Email: correo});
-    if(client){
+    let client = await cliente.findOne({ Email: correo });
+    if (client) {
         console.log("Correo ya en uso");
         return false;
     }
     return true;
+}
+
+async function buscarCliente(nuevoCliente) {
+    let correo = nuevoCliente.email;
+    let contrasena = nuevoCliente.contrasena;
+
+    let client = await cliente.findOne({ Email: correo, Contrasena: contrasena });
+    if (client) {
+        console.log("Cliente encontrado");
+        return true;
     }
+    return false;
+}
 
 
 
-export { guardarCliente, mostrarClientes,verificarCorreo };
+export { guardarCliente, mostrarClientes, verificarCorreo, buscarCliente };

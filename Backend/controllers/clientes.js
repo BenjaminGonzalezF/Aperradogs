@@ -1,5 +1,6 @@
 import { cliente } from "../models/cliente.js";
 
+
 /*const user = new cliente({
     Nombre: 'Test',
     Apellido: 'Test',
@@ -17,7 +18,7 @@ const guardarCliente = (nuevoCliente) => {
 
     })
     client.save();
-    console.log("Cliente guardado");
+    console.log("Cliente guardado");    
 };
 
 const mostrarClientes = () => {
@@ -29,5 +30,21 @@ const mostrarClientes = () => {
         }
     });
 };
+// compare the email with the of other emails users  in the database;
 
-export { guardarCliente, mostrarClientes };
+
+
+async function  verificarCorreo(nuevoCliente){
+    let correo = nuevoCliente.email;
+
+    let client = await cliente.findOne({Email: correo});
+    if(client){
+        console.log("Correo ya en uso");
+        return false;
+    }
+    return true;
+    }
+
+
+
+export { guardarCliente, mostrarClientes,verificarCorreo };

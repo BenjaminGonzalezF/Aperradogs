@@ -32,11 +32,11 @@ app.listen(port, () => {
 })
 
 
-import { guardarCliente, mostrarClientes } from './controllers/clientes.js'
-import { guardarMascota, mostrarMascota } from './controllers/mascotas.js'
+//import { guardarCliente, mostrarClientes } from './controllers/clientes.js'
+//import { guardarMascota, mostrarMascota } from './controllers/mascotas.js'
 initDB()
 //guardarCliente();
 //mostrarClientes();
-guardarMascota();
-mostrarMascota();
+//guardarMascota();
+//mostrarMascota();
 

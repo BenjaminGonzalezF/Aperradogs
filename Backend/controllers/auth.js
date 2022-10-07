@@ -46,6 +46,7 @@ export async function registro(req,res){
 	}
 	
 	return res.status(200).json({
+		
 		massage: "Ok"
 	});
 

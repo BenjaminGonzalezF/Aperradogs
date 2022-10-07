@@ -1,14 +1,22 @@
 import { cliente } from "../models/cliente.js";
 
-const user = new cliente({
+/*const user = new cliente({
     Nombre: 'Test',
     Apellido: 'Test',
     Email: 'Test',
     Contrasena: 'Test',
 });
+*/
 
-const guardarCliente = () => {
-    user.save();
+const guardarCliente = (nuevoCliente) => {
+    const client = new cliente({
+        Nombre: nuevoCliente.nombre,
+        Apellido: nuevoCliente.apellido,
+        Email: nuevoCliente.email,
+        Contrasena: nuevoCliente.contrasena,
+
+    })
+    client.save();
     console.log("Cliente guardado");
 };
 

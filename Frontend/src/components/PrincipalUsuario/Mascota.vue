@@ -54,53 +54,10 @@
               <v-card-title><span class="text-h5">Registrarse</span></v-card-title>
               <v-card-text>
                 <v-form v-model="valid">
-                  <v-container>
-                  <v-row>
-                    <v-col cols="3" md="6">
-                      <v-text-field
-                      v-model="nombre"
-                      :rules="nombreRules"
-                      label="Nombre"
-                      required
-                    ></v-text-field>
-                    </v-col>
-    
-                    <v-col cols="2" md="6">
-                      <v-text-field
-                      v-model="apellido"
-                      :rules="apellidoRules"
-                      label="Apellido"
-                      required
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                <v-row>
-                  <v-col >
-                    <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="2" md="6">
-                    <v-text-field
-                    v-model="pass"
-                    :rules="passRules"
-                    label="Contraseña"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="2" md="6">
-                    <v-text-field
-                    v-model="confirmarPass"
-                    :rules="passRules"
-                    label="Confirmar Contraseña"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                </v-container>
+                
+               <RegistrarMascota/>
+              
+             
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -128,6 +85,9 @@
     </template>
     
     <script>
+
+import RegistrarMascota from './RegistrarMascota';
+
     export default{
             data(){
                 return{
@@ -141,6 +101,11 @@
                         {nombre: 'Peluza', especie:'Conejo' ,raza:'Hotot',imagen:'/Chimi.jpeg'}, 
                     ]
                 }
-            }
+            },
+
+    components: {
+			RegistrarMascota
+			
+		},
         }
     </script>

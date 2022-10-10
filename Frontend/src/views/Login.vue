@@ -1,22 +1,14 @@
 <template>
   <!-- <h1>{{$store.state.hola}}</h1> -->
   <!--Formulario ingreso-->
-
- 
   <v-content>
-    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
-    </v-alert>
-    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
-    </v-alert>
-    <v-alert v-model="notificacionCredencialesInvalid" elevation="19" shaped type="error" dismissible> Credenciales invalidas
-    </v-alert>
-    
     <v-card width="500px" class="mx-auto mt-15">
       <v-card-title>Credenciales</v-card-title>
       <v-card-text>
         <v-text-field label="E-mail" v-model="loginEmail" prepend-icon="mdi-account-circle" 
 />
         <v-text-field
+        
         
         v-model="loginPassword"
         label="Contraseña"
@@ -114,8 +106,10 @@
       </v-dialog>
     </v-row>
     
-
-
+    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
+    </v-alert>
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
+    </v-alert>
   </v-content>
 
   
@@ -126,7 +120,7 @@
   export default {
     
     data: () => ({
-      notificacionExitosa: false,notificacionNoExitosa: false,notificacionCredencialesInvalid : false,
+      notificacionExitosa: false,notificacionNoExitosa: false,
       loginEmail: '',emailRegistro:'',
       loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
@@ -214,8 +208,6 @@
             }
           }).catch((err)=>{
             console.log(err)
-            this.notificacionCredencialesInvalid = true
-
           })
 
         }

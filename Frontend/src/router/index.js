@@ -4,10 +4,7 @@ import Home from '../components/Home.vue'
 import Nosotros from '../components/Nosotros.vue'
 import InicioSesion from '../components/InicioSesion.vue'
 import Principal from '../components/Principal.vue'
-
-
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
@@ -24,17 +21,37 @@ const routes = [
     name: 'InicioSesion',
     component: InicioSesion
   },
-
   {
     path: '/Principal',
     name: 'Principal',
     component: Principal
   },
-  
+  {
+    path: '/ingreso',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },{
+    path: '/usuario',
+    name: 'usuario',
+    component: () => import('../views/VistaUsuario.vue')
+  },
+  ,{
+    path: '/mascotas',
+    name: 'mascotas',
+    component: () => import('../components/PrincipalUsuario/Mascota.vue')
+  },
 ]
-
 const router = new VueRouter({
   routes
 })
+router.beforeEach(async (to, from, next) => {
+  if ((to.name === 'login' || to.name === 'registrarse') && isAuthenticated()) next({ name: 'home' })
+  else next()
+})
+
+
+function isAuthenticated(){
+  return localStorage.getItem('token') != null;
+}
 
 export default router

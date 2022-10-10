@@ -27,7 +27,7 @@
             Nosotros
           </v-btn>
   
-          <v-btn to="/InicioSesion" class="text-capitalize mr-2" v-bind:class="{ 'v-btn--active': $route.path == '/InicioSesion' }" v-show="$vuetify.breakpoint.lgOnly"> 
+          <v-btn to="/InicioSesion" class="text-capitalize mr-2" v-bind:class="{ 'v-btn--active': $route.path == '/ingreso' }" v-show="$vuetify.breakpoint.lgOnly"> 
             Inicio Sesion
           </v-btn>
 

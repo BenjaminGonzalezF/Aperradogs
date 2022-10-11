@@ -1,23 +1,30 @@
-import { mascota } from "../models/mascotas.js";
+import { mascota } from "../data_base/models/mascotas.js";
 
-const pet = new mascota({
-    Nombre: 'Test',
-    ID: 'Test',
-});
-
-const guardarMascota = () => {
-    pet.save();
+const guardarMascota = (datosNuevaMascota) => {
+    const nuevaMascota = new mascota({
+        Nombre: datosNuevaMascota.nombre,
+        ID: obtenerNumeroMascotas(),
+        Especie: datosNuevaMascota.especie,
+    })
+    nuevaMascota.save();
     console.log("Mascota guardada");
 };
 
-const mostrarMascota = () => {
-    mascota.find({}, (err, Mascotas) => {
+//obtener numero de mascotas en la base de datos
+const obtenerNumeroMascotas = async () => {
+    let numeroMascotas = await mascota.countDocuments();
+    return numeroMascotas;
+}
+
+
+const mostrarMascotas = () => {
+    mascota.find({}, (err, Clientes) => {
         if (err) {
             console.log('Error al mostrar los clientes');
         } else {
-            console.log(Mascotas);
+            console.log(Clientes);
         }
     });
 };
 
-export { guardarMascota, mostrarMascota };
+export { guardarMascota, mostrarMascotas };

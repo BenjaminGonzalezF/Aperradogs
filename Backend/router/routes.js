@@ -1,7 +1,7 @@
 import * as userController from '../controllers/users.js';
 import * as testController from '../controllers/test.js';
-import * as authController from '../controllers/auth.js';
-import *  as controladorClientes from '../data_base/clientes.js';
+import *  as controladorClientes from '../data_base/config_db_clientes.js';
+import * as controladorMascotas from '../data_base/config_db_mascotas.js';
 
 export default function initUsers(app){
     app.get("/usuario", userController.getUser);
@@ -10,6 +10,8 @@ export default function initUsers(app){
 
     app.post("/login", controladorClientes.ingreso);
     app.post("/registro", controladorClientes.registro);
+    app.post("/registroMascota", controladorMascotas.registro);
+
 
     app.get("/", testController.test);
 }

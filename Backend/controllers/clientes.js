@@ -1,4 +1,4 @@
-import { cliente } from "../models/cliente.js";
+import { cliente } from "../data_base/models/cliente.js";
 import * as jwtController from "./../jwt.js";
 
 const guardarCliente = (nuevoCliente) => {

@@ -1,5 +1,5 @@
 import { guardarCliente, verificarCorreo, buscarCliente } from '../controllers/clientes.js'
-import * as jwtController from "./../jwt.js";
+import * as jwtController from "../jwt.js";
 
 export async function registro(req, res) {
 

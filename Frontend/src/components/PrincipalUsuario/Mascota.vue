@@ -1,10 +1,12 @@
 
 <template>
     <v-container class="my-5 pt-10 mb-16">
-        <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
+        <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Mascota registrada
     </v-alert>
-    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> Error al registrar mascota
     </v-alert>
+
+    
         <h1 class="subheading grey--text mb-10">Mascotas</h1>
         <v-layout row wrap class="justify-center">
             <v-flex xs5 sm6 md4 lg3 ps-1 ma-3 v-for="mascota in mascotas" :key="mascota.nombre">
@@ -43,9 +45,31 @@
                     <v-card-text>
                         <v-form v-model="valid">
 
-                            <RegistrarMascota />
+                            <template> 
+                                <v-container class="mt-8"> 
+                                    <v-row> 
+                                        <v-col cols="5" md="3"> 
+                                            <v-text-field 
+                                            v-model="nombre" 
+                                            :rules="nombreRules" 
+                                            label="Nombre Mascota" 
+                                            required 
+                                        ></v-text-field> 
+                                        </v-col> 
 
+                                        <v-col cols="5" md="3"> 
+                                            <v-text-field 
+                                            v-model="especie" 
+                                            :rules="especieRules" 
+                                            label="Especie de la Mascota" 
+                                            required 
+                                            ></v-text-field> 
+                                        </v-col> 
+                                    </v-row> 
+                                    
+                                </v-container> 
 
+                            </template> 
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
@@ -53,7 +77,7 @@
                             <v-btn color="blue darken-1" text @click="$store.state.dialog=false">Cerrar</v-btn>
 
                             <v-btn color="blue darken-1" class="mr-4" text @click="validate">Enviar
-                            </v-btn><!-- Acá deberia conectar con el back -->
+                            </v-btn>
                         </v-spacer>
                     </v-card-actions>
                 </v-card>
@@ -64,14 +88,21 @@
 </template>
     
 <script>
-import RegistrarMascota from './RegistrarMascota.vue';
 
-
+import axios from 'axios';
 export default {
-    components: {
-            RegistrarMascota
-        },
     data: () => ({
+        valido: true, 
+        nombre: '', 
+        nombreRules: [ 
+            v => !!v || 'Nombre es requerido', 
+        ], 
+        especie: '', 
+        especieRules: [ 
+            v => !!v || 'Especie es requerido', 
+        ], 
+        
+        valid :false,
 
         notificacionExitosa: false, notificacionNoExitosa: false, 
         nombre: '', especie: '',
@@ -85,16 +116,8 @@ export default {
         ]
     }),
     methods: {
-        validate() {
-            if (nombre == '' || especie == '') {
-                alert('Debe completar todos los campos');
-            }
-            else {
-                Data.nombre
-                this.registrar();
-            }
-        },
-        registar() {
+       
+        registrar() {
             axios.post('http://localhost:3000/registroMascota', {
                 nombre: this.nombre,
                 especie: this.especie,
@@ -105,6 +128,8 @@ export default {
                     console.log("Mascota registrada en el servidor")
                     this.notificacionExitosa = true
 
+                }else{
+                    console.log(res)
                 }
             }).catch((err) => {
                 console.log(err)
@@ -114,6 +139,17 @@ export default {
             })
 
 
+        },
+         validate() {
+            if (this.nombre == '' || this.especie == '') {
+                alert('Debe completar todos los campos');
+            }
+            else {
+                this.$store.state.dialog=false
+                this.registrar();
+                this.nombre = ''
+                this.especie = ''
+            }
         }
     }
         

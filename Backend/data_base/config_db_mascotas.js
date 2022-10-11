@@ -7,9 +7,6 @@ export async function registro(req, res) {
 
     let mascota = { nombre: nombre, especie: especie }
 
-    console.log("Llego una dui:", mascota)
-
-
     if (mascota.nombre == null || mascota.especie == null) {
         return res.status(401).json({
             massage: "Datos no ingresados"

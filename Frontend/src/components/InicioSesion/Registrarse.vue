@@ -1,5 +1,5 @@
 <template>
-    <v-form v-model="valido">
+    
         <v-container class="mt-8">
             <v-row>
                 <v-col cols="5" md="3">
@@ -55,7 +55,6 @@
                 >Enviar</v-btn>
             </v-row>
         </v-container>
-    </v-form>
 </template>
 
 <script>

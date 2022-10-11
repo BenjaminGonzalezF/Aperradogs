@@ -43,54 +43,8 @@
         <v-card>
           <v-card-title><span class="text-h5">Registrarse</span></v-card-title>
           <v-card-text>
-            <v-form v-model="valid">
-              <v-container>
-              <v-row>
-                <v-col cols="3" md="6">
-                  <v-text-field
-                  v-model="nombreRegistro"
-                  :rules="nombreRules"
-                  label="Nombre"
-                  required
-                ></v-text-field>
-                </v-col>
-
-                <v-col cols="2" md="6">
-                  <v-text-field
-                  v-model="apellidoRegistro"
-                  :rules="apellidoRules"
-                  label="Apellido"
-                  required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            <v-row>
-              <v-col >
-                <v-text-field
-                v-model="emailRegistro"
-                :rules="emailRules"
-                label="E-mail"
-                required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="2" md="6">
-                <v-text-field
-                v-model="passRegistro"
-                :rules="passRules"
-                label="Contraseña"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="2" md="6">
-                <v-text-field
-                v-model="confirmarPassRegistro"
-                :rules="passRules"
-                label="Confirmar Contraseña"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            </v-container>
+            <v-form v-model="valid">   
+              <Registarse/>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -123,6 +77,8 @@
 
 <script>
   import axios from 'axios';
+  import Registrarse from './Registrarse';
+
   export default {
     
     data: () => ({
@@ -149,7 +105,7 @@
       ],
       confirmarPass: '',
     }),
-      
+       
     methods:{
       register(){
         
@@ -219,7 +175,12 @@
           })
 
         }
-    }
+    },
+    components: {
+			Registrarse
+			
+		}
+   
   }
 </script>
 

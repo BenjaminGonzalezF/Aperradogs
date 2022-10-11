@@ -1,7 +1,7 @@
 
 <template>
 
-    <v-carousel v-model="model" height="auto" class="mt-3" hide-delimiters>
+    <v-carousel v-model="model" height="500" class="mt-3" hide-delimiters>
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -20,7 +20,7 @@
   
         items: [
             {
-              src: 'https://img.freepik.com/fotos-premium/equipo-veterinario-tratamiento-gatos-enfermos-mantener-salud-animales-concepto-revision-hogar-estetoscopio-hospital-animales-preparacion-gato-cirugia-inyeccion-foto-alta-calidad_530697-10353.jpg?w=540',
+              src: './Logo1.jpg',
             },
             {
               src: 'https://www.clinicaveterinariaejea.com/wp-content/uploads/2020/03/clinica_veterinaria_ejea_036-2.jpeg',

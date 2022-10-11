@@ -43,7 +43,7 @@
 			$route: {
 				immediate: true,
 				handler(to) {
-					document.title = to.meta.title || 'PrincipalUsuario - Mi Proyecto';
+					document.title = to.meta.title || 'PrincipalUsuario - Aperradogs';
 				}
 			},
 		},

@@ -35,11 +35,7 @@ const routes = [
     name: 'usuario',
     component: () => import('../views/VistaUsuario.vue')
   },
-  ,{
-    path: '/mascotas',
-    name: 'mascotas',
-    component: () => import('../components/PrincipalUsuario/Mascota.vue')
-  },
+ 
 ]
 const router = new VueRouter({
   routes

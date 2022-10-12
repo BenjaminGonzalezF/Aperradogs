@@ -22,13 +22,18 @@ const obtenerNumeroMascotas = async () => {
 
 
 const mostrarMascotas = () => {
-    mascota.find({}, (err, Clientes) => {
+    mascota.find({}, (err, mascotas) => {
         if (err) {
             console.log('Error al mostrar los clientes');
         } else {
-            console.log(Clientes);
+            console.log(mascotas);
         }
     });
 };
 
-export { guardarMascota, mostrarMascotas };
+const buscarMascotasDB = async () => {
+    let mascotas = await mascota.find();
+    return mascotas;
+}
+
+export { guardarMascota, mostrarMascotas ,buscarMascotasDB};

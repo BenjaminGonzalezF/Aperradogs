@@ -11,6 +11,7 @@ export default function initUsers(app){
     app.post("/login", controladorClientes.ingreso);
     app.post("/registro", controladorClientes.registro);
     app.post("/registroMascota", controladorMascotas.registro);
+    app.get("/buscarMascotas/", controladorMascotas.buscarMascotas);
 
 
     app.get("/", testController.test);

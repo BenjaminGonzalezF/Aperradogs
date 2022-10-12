@@ -1,4 +1,4 @@
-import { guardarMascota} from '../controllers/mascotas.js'
+import { guardarMascota, buscarMascotasDB} from '../controllers/mascotas.js'
 
 
 export async function registro(req, res) {
@@ -17,4 +17,18 @@ export async function registro(req, res) {
             massage: "Mascota registrada"
         });
     }
+}
+
+export async function buscarMascotas(req, res) {
+  
+try {
+        let mascotas = await buscarMascotasDB();
+        return res.status(200).json({
+            mascotas: mascotas
+        });
+} catch (error) {
+        console.log(error);
+    }
+
+
 }

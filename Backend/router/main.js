@@ -1,4 +1,4 @@
-import initUsers from './users.js';
+import initUsers from './routes.js';
 
  function initRouters(app) {
     initUsers(app);

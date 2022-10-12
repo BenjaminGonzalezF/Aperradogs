@@ -1,17 +1,18 @@
 import express from 'express'
-import {initRouters} from './router/main.js'
-// import cors
+import { initRouters } from './router/main.js'
 import cors from 'cors'
-const app = express()
-
+import initDB from './data_base/initDB.js'
 import mongoose from "mongoose";
 import dotnev from "dotenv";
-dotnev.config();
-const uri = `${process.env.BASE_DE_DATOS}`;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const TestSchema = new mongoose.Schema({   text: String, });
+const app = express()
+
+
+/*const TestSchema = new mongoose.Schema({   text: String, });
 const Test = mongoose.model("Test", TestSchema);
+let usuario = new Test({ text: 'asdc' });
+usuario.save();
+*/
 
 app.use(cors())
 app.use(express.json())
@@ -29,3 +30,13 @@ app.use(function timeLog(req, res, next) {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
+//import { guardarCliente, mostrarClientes } from './controllers/clientes.js'
+//import { guardarMascota, mostrarMascota } from './controllers/mascotas.js'
+initDB()
+//guardarCliente();
+//mostrarClientes();
+//guardarMascota();
+//mostrarMascota();
+

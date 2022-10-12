@@ -9,6 +9,7 @@
 />
         <v-text-field
         
+        
         v-model="loginPassword"
         label="Contraseña"
         :type="$store.state.mostrarPass ? 'text' : 'password'"
@@ -39,7 +40,7 @@
               <v-row>
                 <v-col cols="3" md="6">
                   <v-text-field
-                  v-model="nombre"
+                  v-model="nombreRegistro"
                   :rules="nombreRules"
                   label="Nombre"
                   required
@@ -48,7 +49,7 @@
 
                 <v-col cols="2" md="6">
                   <v-text-field
-                  v-model="apellido"
+                  v-model="apellidoRegistro"
                   :rules="apellidoRules"
                   label="Apellido"
                   required
@@ -58,7 +59,7 @@
             <v-row>
               <v-col >
                 <v-text-field
-                v-model="email"
+                v-model="emailRegistro"
                 :rules="emailRules"
                 label="E-mail"
                 required
@@ -68,14 +69,14 @@
             <v-row>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="pass"
+                v-model="passRegistro"
                 :rules="passRules"
                 label="Contraseña"
                 ></v-text-field>
               </v-col>
               <v-col cols="2" md="6">
                 <v-text-field
-                v-model="confirmarPass"
+                v-model="confirmarPassRegistro"
                 :rules="passRules"
                 label="Confirmar Contraseña"
                 ></v-text-field>
@@ -97,14 +98,18 @@
               color="blue darken-1"
               class="mr-4"
               text
-              @click="validate"
-              v-on:click="register" 
+              @click="validate" 
               >Enviar</v-btn><!-- Acá deberia conectar con el back -->
             </v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
+    
+    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
+    </v-alert>
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
+    </v-alert>
   </v-content>
 
   
@@ -113,25 +118,26 @@
 <script>
   import axios from 'axios';
   export default {
-
+    
     data: () => ({
-      loginEmail: '',
-      loginPassword: '',
+      notificacionExitosa: false,notificacionNoExitosa: false,
+      loginEmail: '',emailRegistro:'',
+      loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
-      nombre: '',
+      nombreRegistro: '',
       nombreRules: [
           v => !!v || 'Nombre es requerido',
       ],
-      apellido: '',
+      apellidoRegistro: '',
       apellidoRules: [
           v => !!v || 'apellido es requerido',
       ],
-      email: '',
+      emailRegistro: '',
       emailRules: [
           v => !!v || 'E-mail es requerido',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
-      pass: '',
+      passRegistro: '',
       passRules: [
           v => !!v || 'Contraseña es requerida',
       ],
@@ -139,17 +145,41 @@
     }),
       
     methods:{
+      register(){
+        
+          axios.post('http://localhost:3000/registro', {
+            email: this.emailRegistro,
+            password: this.passRegistro,
+            nombre: this.nombreRegistro,
+            apellido: this.apellidoRegistro
+
+          }).then((res)=>{
+            if(res.status == 200){
+              console.log(res.data)
+              console.log("Usuario registrado en el servidor")
+              this.notificacionExitosa = true
+
+            }
+          }).catch((err)=>{
+            console.log(err)
+            console.log(err.res)
+            this.notificacionNoExitosa = true
+
+          })
+
+
+        },
         /* Validacion formulario registro */
         validate () {
-          if((this.pass == this.confirmarPass)){
+          if((this.passRegistro == this.confirmarPassRegistro)){
             this.$store.state.dialog=false
-            this.$refs.form.validate()
-            /* limpiar variables */
-            this.nombre=""
-            this.apellido=""
-            this.email=""
-            this.pass=""
-            this.confirmarPass=""
+            //this.$refs.form.validate()
+            this.register()
+            this.emailRegistro = ""
+            this.passRegistro = ""
+            this.nombreRegistro = ""
+            this.apellidoRegistro = ""
+            this.confirmarPassRegistro = ""
           }
           else{
             alert("Las contraseñas deben coincidir")
@@ -179,11 +209,6 @@
           }).catch((err)=>{
             console.log(err)
           })
-
-        },
-        register(){
-          console.log(this.email)
-          console.log(this.pass)
 
         }
     }

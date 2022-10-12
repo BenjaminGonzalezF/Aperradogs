@@ -1,12 +1,18 @@
 
 <template>
     <v-container class="my-5 pt-10 mb-16">
-        <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Mascota registrada
-    </v-alert>
-    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> Error al registrar mascota
-    </v-alert>
 
-    
+        <div class="d-flex align-center justify-center">
+                    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible 
+                    width="30%" >
+                        Mascota registrada
+                    </v-alert>
+               
+                    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible width="30%">
+                        Error alregistrar mascota
+                    </v-alert>
+                </div>
+
         <h1 class="subheading grey--text mb-10">Mascotas</h1>
         <v-layout row wrap class="justify-center">
             <v-flex xs5 sm6 md4 lg3 ps-1 ma-3 v-for="mascota in mascotas" :key="mascota.nombre">
@@ -45,31 +51,24 @@
                     <v-card-text>
                         <v-form v-model="valid">
 
-                            <template> 
-                                <v-container class="mt-8"> 
-                                    <v-row> 
-                                        <v-col cols="5" md="3"> 
-                                            <v-text-field 
-                                            v-model="nombre" 
-                                            :rules="nombreRules" 
-                                            label="Nombre Mascota" 
-                                            required 
-                                        ></v-text-field> 
-                                        </v-col> 
-
-                                        <v-col cols="5" md="3"> 
-                                            <v-text-field 
-                                            v-model="especie" 
-                                            :rules="especieRules" 
-                                            label="Especie de la Mascota" 
-                                            required 
-                                            ></v-text-field> 
-                                        </v-col> 
-                                    </v-row> 
+                            <template>
+                                <v-container class="mt-8">
+                                    <v-row>
+                                        <v-col cols="5" md="4">
                                     
-                                </v-container> 
+                                            <v-text-field v-model="nombre" :rules="nombreRules" label="Nombre Mascota"  
+                                                required></v-text-field>
+                                        </v-col>
 
-                            </template> 
+                                        <v-col cols="5" md="5">
+                                            <v-text-field v-model="especie" :rules="especieRules"
+                                                label="Especie de la Mascota" required></v-text-field>
+                                        </v-col>
+                                    </v-row>
+
+                                </v-container>
+
+                            </template>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
@@ -92,19 +91,19 @@
 import axios from 'axios';
 export default {
     data: () => ({
-        valido: true, 
-        nombre: '', 
-        nombreRules: [ 
-            v => !!v || 'Nombre es requerido', 
-        ], 
-        especie: '', 
-        especieRules: [ 
-            v => !!v || 'Especie es requerido', 
-        ], 
-        
-        valid :false,
+        valido: true,
+        nombre: '',
+        nombreRules: [
+            v => !!v || 'Nombre es requerido',
+        ],
+        especie: '',
+        especieRules: [
+            v => !!v || 'Especie es requerido',
+        ],
 
-        notificacionExitosa: false, notificacionNoExitosa: false, 
+        valid: false,
+
+        notificacionExitosa: false, notificacionNoExitosa: false,
         nombre: '', especie: '',
         mascotas: [
             { nombre: 'Chimichurri', especie: 'Perro', raza: 'Golden', imagen: '/Chimi.jpeg' },
@@ -116,7 +115,7 @@ export default {
         ]
     }),
     methods: {
-       
+
         registrar() {
             axios.post('http://localhost:3000/registroMascota', {
                 nombre: this.nombre,
@@ -128,7 +127,7 @@ export default {
                     console.log("Mascota registrada en el servidor")
                     this.notificacionExitosa = true
 
-                }else{
+                } else {
                     console.log(res)
                 }
             }).catch((err) => {
@@ -140,18 +139,18 @@ export default {
 
 
         },
-         validate() {
+        validate() {
             if (this.nombre == '' || this.especie == '') {
                 alert('Debe completar todos los campos');
             }
             else {
-                this.$store.state.dialog=false
+                this.$store.state.dialog = false
                 this.registrar();
                 this.nombre = ''
                 this.especie = ''
             }
         }
     }
-        
+
 }
 </script>

@@ -104,7 +104,7 @@ import RegistrarMascota from './RegistrarMascota';
             },
 
     components: {
-			RegistrarMascota
+			RegistrarMascota,
 			
 		},
         }

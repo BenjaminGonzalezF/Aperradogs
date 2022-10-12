@@ -105,6 +105,11 @@
       ],
       confirmarPass: '',
     }),
+
+    components: {
+			Registrarse,
+			
+		},
        
     methods:{
       register(){
@@ -175,11 +180,8 @@
           })
 
         }
-    },
-    components: {
-			Registrarse
-			
-		}
+    }
+   
    
   }
 </script>

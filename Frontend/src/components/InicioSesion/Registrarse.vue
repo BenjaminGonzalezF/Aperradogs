@@ -88,6 +88,6 @@
                     this.imprimir()
                 } 
             },
-        }
+        },
     }
 </script>

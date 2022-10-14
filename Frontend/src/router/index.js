@@ -4,6 +4,7 @@ import Home from '../components/Home.vue'
 import Nosotros from '../components/Nosotros.vue'
 import InicioSesion from '../components/InicioSesion.vue'
 import Principal from '../components/Principal.vue'
+import Calendario from '../components/PrincipalUsuario/Calendario.vue'
 Vue.use(VueRouter)
 const routes = [
   {
@@ -35,7 +36,11 @@ const routes = [
     name: 'usuario',
     component: () => import('../components/PrincipalUsuario/VistaUsuario.vue')
   },
- 
+  {
+    path: '/calendario',
+    name: 'Calendario',
+    component: () => import('../components/PrincipalUsuario/Calendario.vue')
+  },
 ]
 const router = new VueRouter({
   routes

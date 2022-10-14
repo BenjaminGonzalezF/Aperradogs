@@ -8,8 +8,7 @@
   
           <Login/>
   
-          <Registrarse/>
-  
+          
           <router-view> 
   
             <v-content>
@@ -33,7 +32,7 @@
 	import Menu from './Menu';
 	import Footer from './Footer';
 	import Login from './InicioSesion/Login';
-	import Registrarse from './InicioSesion/Registrarse';
+	
 
 	export default {
 		name: 'InicioSesion',
@@ -42,7 +41,7 @@
 			$route: {
 				immediate: true,
 				handler(to) {
-					document.title = to.meta.title || 'InicioSesion - Mi Proyecto';
+					document.title = to.meta.title || 'InicioSesion - Aperradogs';
 				}
 			},
 		},
@@ -51,7 +50,7 @@
 			Menu,
 			Footer,
 			Login,
-			//Registrarse,
+			
 		},
 
 	} 

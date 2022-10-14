@@ -88,9 +88,7 @@
     export default {
       name: 'Menu',
 
-      mounted(){
-        this.$vs.setColor('', '#8BF2CC')
-      },
+      
   
       data: () => ({
         drawer: false,

@@ -1,7 +1,18 @@
 <template>
   <!-- <h1>{{$store.state.hola}}</h1> -->
   <!--Formulario ingreso-->
+
+ 
   <v-content>
+    <div class="d-flex align-center justify-center">
+    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible width="30%"> Usuario registrado!
+    </v-alert>
+    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible width="30%"> El email ya esta en uso
+    </v-alert>
+    <v-alert v-model="notificacionCredencialesInvalid" elevation="19" shaped type="error" dismissible width="30%"> Credenciales invalidas
+    </v-alert>
+    </div>
+    
     <v-card width="500px" class="mx-auto mt-15">
       <v-card-title>Credenciales</v-card-title>
       <v-card-text>
@@ -98,17 +109,15 @@
               class="mr-4"
               text
               @click="validate" 
-              >Enviar</v-btn><!-- Acá deberia conectar con el back -->
+              >Enviar</v-btn>
             </v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
     
-    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Usuario registrado!
-    </v-alert>
-    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> El email ya esta en uso
-    </v-alert>
+
+
   </v-content>
 
   
@@ -119,7 +128,7 @@
   export default {
     
     data: () => ({
-      notificacionExitosa: false,notificacionNoExitosa: false,
+      notificacionExitosa: false,notificacionNoExitosa: false,notificacionCredencialesInvalid : false,
       loginEmail: '',emailRegistro:'',
       loginPassword: '',passRegistro: '',confirmarPassRegistro:'',
       valid: true,
@@ -156,6 +165,8 @@
             if(res.status == 200){
               console.log(res.data)
               console.log("Usuario registrado en el servidor")
+              this.notificacionCredencialesInvalid = false
+              this.notificacionNoExitosa = false
               this.notificacionExitosa = true
 
             }
@@ -163,6 +174,8 @@
             console.log(err)
             console.log(err.res)
             this.notificacionNoExitosa = true
+            this.notificacionCredencialesInvalid = false
+            this.notificacionExitosa = false
 
           })
 
@@ -202,11 +215,17 @@
               localStorage.setItem('user', JSON.stringify(res.data.user))
 
               // move to home usuario view
+              this.loginEmail = ""
+              this.loginPassword = ""
               this.$router.push('/usuario')
 
             }
           }).catch((err)=>{
             console.log(err)
+            this.notificacionCredencialesInvalid = true
+            this.notificacionNoExitosa = false
+            this.notificacionExitosa = false
+
           })
 
         }

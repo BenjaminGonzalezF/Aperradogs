@@ -30,11 +30,7 @@
                         <div>{{mascota.raza}}</div>
                     </v-card-text>
                     <v-row>
-                        <v-btn class="mb-2 ml-5" fab dark x-small color="success">
-                            <v-icon dark>
-                                mdi-pencil
-                            </v-icon>
-                        </v-btn>
+                        
                     </v-row>
                 </v-card>
             </v-flex>

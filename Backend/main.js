@@ -7,13 +7,6 @@ import dotnev from "dotenv";
 
 const app = express()
 
-
-/*const TestSchema = new mongoose.Schema({   text: String, });
-const Test = mongoose.model("Test", TestSchema);
-let usuario = new Test({ text: 'asdc' });
-usuario.save();
-*/
-
 app.use(cors())
 app.use(express.json())
 
@@ -32,11 +25,5 @@ app.listen(port, () => {
 })
 
 
-//import { guardarCliente, mostrarClientes } from './controllers/clientes.js'
-//import { guardarMascota, mostrarMascota } from './controllers/mascotas.js'
 initDB()
-//guardarCliente();
-//mostrarClientes();
-//guardarMascota();
-//mostrarMascota();
 

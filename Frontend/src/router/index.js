@@ -33,7 +33,7 @@ const routes = [
   },{
     path: '/usuario',
     name: 'usuario',
-    component: () => import('../views/VistaUsuario.vue')
+    component: () => import('../components/PrincipalUsuario/VistaUsuario.vue')
   },
  
 ]

@@ -30,7 +30,7 @@
                         <div>{{mascota.raza}}</div>
                     </v-card-text>
                     <v-row>
-                        
+
                     </v-row>
                 </v-card>
             </v-flex>
@@ -115,9 +115,9 @@ export default {
         obtenerMascotas(){
             axios.get('http://localhost:3000/buscarMascotas',{
             }).then((res) => {
-
-                    let mascotas = JSON.stringify(res.data.mascotas)
-                    let pet = JSON.parse(mascotas)
+                this.mascotas = []
+                let mascotas = JSON.stringify(res.data.mascotas)
+                let pet = JSON.parse(mascotas)
                 var i = 0;
                 for (i in pet) {
                     var nuevaMascota = { nombre: pet[i].Nombre, especie: pet[i].Especie, imagen: '/logo.png' }
@@ -145,7 +145,10 @@ export default {
                     this.notificacionExitosa = true
                     this.notificacionNoExitosa = false
                     this.errorMostrarMascotas = false
-                    this.$forceUpdate()
+                    var nuevaMascota = { nombre: this.nombre, especie: this.especie, imagen: '/logo.png' }
+                    this.mascotas.push(nuevaMascota)
+                    this.nombre = ''
+                    this.especie = ''
 
                 } else {
                     console.log(res)
@@ -168,8 +171,7 @@ export default {
             else {
                 this.$store.state.dialog = false
                 this.registrar();
-                this.nombre = ''
-                this.especie = ''
+                
             }
         },
         

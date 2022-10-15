@@ -13,6 +13,10 @@ var Mascotas = new mongoose.Schema(
         Especie:{
             type: String,
             required: true,
+        },
+        Dueño:{
+            type: String,
+            required: true,
         }
     },
     {   

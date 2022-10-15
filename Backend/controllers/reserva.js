@@ -10,6 +10,7 @@ const guardarReserva = async (datosNuevaReserva) => {
         ID: id,
         Hora: datosNuevaReserva.hora,
         Fecha: datosNuevaReserva.fecha,
+        Estado: 'Pendiente',
         Cliente: datosNuevaReserva.cliente,
         Mascota: datosNuevaReserva.mascota,
     })

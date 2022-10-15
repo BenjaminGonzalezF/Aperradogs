@@ -6,8 +6,7 @@ export async function registro(req, res) {
 
     let reserva = { hora: hora, fecha: fecha, cliente:obtenerEmail , mascota: mascota };
 
-    //console.log(user['email'])
-    //console.log(users[0].email)
+
     console.log("Llego un dui:", reserva)
 
 

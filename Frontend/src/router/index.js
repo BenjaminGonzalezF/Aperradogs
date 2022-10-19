@@ -41,6 +41,11 @@ const routes = [
     name: 'Calendario',
     component: () => import('../components/PrincipalUsuario/Calendario.vue')
   },
+  {
+    path: '/calendarioAdmin',
+    name: 'CalendarioAdmin',
+    component: () => import('../components/PrincipalUsuario/CalendarioAdmin.vue')
+  },
 ]
 const router = new VueRouter({
   routes

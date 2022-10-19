@@ -5,7 +5,7 @@
         color="primary"
         dark
       >
-        <v-toolbar-title>Name User</v-toolbar-title>
+        <v-toolbar-title>Aperradogs</v-toolbar-title>
       </v-toolbar>
       <v-tabs vertical>
         <v-tab>

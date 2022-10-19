@@ -5,7 +5,7 @@
         color="primary"
         dark
       >
-        <v-toolbar-title>Name User</v-toolbar-title>
+        <v-toolbar-title>Aperradogs</v-toolbar-title>
       </v-toolbar>
       <v-tabs vertical>
         <v-tab>
@@ -39,9 +39,9 @@
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
-            <v-card-text>
+            <v-card-text class="pa-10">
               <p>
-                Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
+                <Calendario></Calendario>
               </p>
   
             </v-card-text>
@@ -66,6 +66,7 @@
  
 <script> 
 import Mascota from './Mascota';
+import Calendario from './Calendario.vue';
 
     export default{ 
         data () { 
@@ -81,7 +82,8 @@ import Mascota from './Mascota';
    
     } ,
     components: {
-			Mascota,			
-	}
+    Mascota,
+    Calendario
+}
 }
 </script> 

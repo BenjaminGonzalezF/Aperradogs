@@ -17,6 +17,14 @@ var Reserva = new mongoose.Schema(
         Estado:{
             type: String,
             required: true,
+        },
+        Cliente:{
+            type: String,
+            required: true,
+        },
+        Mascota:{
+            type: String,
+            required: true,
         }
     },
     {   

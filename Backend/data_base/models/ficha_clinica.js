@@ -1,29 +1,25 @@
 import mongoose from "mongoose";
 
-var Mascotas = new mongoose.Schema(
+var Ficha_Clinica = new mongoose.Schema(
     {
-        Nombre: {
+        ID: {
             type: String,
             required: true,
         },
-        ID:{
+        Mascota: {
             type: String,
             required: true,
         },
-        Especie:{
+        Historial_Clinico:{
             type: String,
             required: true,
         },
-        Dueño:{
-            type: String,
-            required: true,
-        }
     },
-    {   
-        collection : 'Mascotas',
+    {
+        collection : 'Ficha_Clinica',
         versionKey: false
     }
 )
 
-export const mascota = new mongoose.model('Mascotas', Mascotas);
+export const ficha_Clinica = new mongoose.model('Ficha_Clinica', Ficha);
 

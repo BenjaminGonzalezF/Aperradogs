@@ -4,9 +4,9 @@
   
       <v-main>  
   
-        <Menu/>    
+          
   
-          <Mascota/>
+          <VistaUsuario/>
   
           
   
@@ -33,7 +33,7 @@
 	
 	import Menu from './Menu';
 	import Footer from './Footer';
-	import Mascota from './PrincipalUsuario/Mascota';
+	import VistaUsuario from './PrincipalUsuario/VistaUsuario';
 	
 
 	export default {
@@ -51,7 +51,7 @@
 		components: {
 			Menu,
 			Footer,
-			Mascota,
+			VistaUsuario,
 			
 		},
 

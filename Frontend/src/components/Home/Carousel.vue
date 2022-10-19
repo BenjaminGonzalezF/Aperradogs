@@ -20,7 +20,7 @@
   
         items: [
             {
-              src: './Logo1.jpg',
+              src: './imagen1.jpg',
             },
             {
               src: 'https://www.clinicaveterinariaejea.com/wp-content/uploads/2020/03/clinica_veterinaria_ejea_036-2.jpeg',

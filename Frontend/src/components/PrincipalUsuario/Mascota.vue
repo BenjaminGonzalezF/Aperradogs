@@ -1,16 +1,24 @@
 
 <template>
     <v-container class="my-5 pt-10 mb-16">
-        <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible > Mascota registrada
-    </v-alert>
-    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible> Error al registrar mascota
-    </v-alert>
 
-    
+        <div class="d-flex align-center justify-center">
+                    <v-alert v-model="notificacionExitosa" elevation="19" shaped type="success" dismissible width="30%" >
+                        Mascota registrada
+                    </v-alert>
+                    <v-alert v-model="notificacionNoExitosa" elevation="19" shaped type="error" dismissible width="30%">
+                        Error al registrar mascota
+                    </v-alert>
+                    <v-alert v-model="errorMostrarMascotas" elevation="19" shaped type="error" dismissible width="30%">
+                        Error al mostrar las mascotas
+                    </v-alert>
+
+                </div>
+
         <h1 class="subheading grey--text mb-10">Mascotas</h1>
         <v-layout row wrap class="justify-center">
-            <v-flex xs5 sm6 md4 lg3 ps-1 ma-3 v-for="mascota in mascotas" :key="mascota.nombre">
-                <v-card class="text-center">
+                <v-flex xs5 sm6 md4 lg3 ps-1 ma-3 v-for="mascota in mascotas" :key="mascota.nombre">
+                    <v-card class="text-center">
                     <v-responsive class="pt-4">
                         <v-avatar size="100" class="grey-lighten-2">
                             <v-img :src="mascota.imagen" contain height="125"></v-img>
@@ -22,14 +30,11 @@
                         <div>{{mascota.raza}}</div>
                     </v-card-text>
                     <v-row>
-                        <v-btn class="mb-2 ml-5" fab dark x-small color="success">
-                            <v-icon dark>
-                                mdi-pencil
-                            </v-icon>
-                        </v-btn>
+
                     </v-row>
                 </v-card>
             </v-flex>
+            
         </v-layout>
         <v-container row>
             <v-btn class="mr-16" @click="$store.state.dialog=true" fab dark right absolute color="indigo">
@@ -45,31 +50,24 @@
                     <v-card-text>
                         <v-form v-model="valid">
 
-                            <template> 
-                                <v-container class="mt-8"> 
-                                    <v-row> 
-                                        <v-col cols="5" md="3"> 
-                                            <v-text-field 
-                                            v-model="nombre" 
-                                            :rules="nombreRules" 
-                                            label="Nombre Mascota" 
-                                            required 
-                                        ></v-text-field> 
-                                        </v-col> 
-
-                                        <v-col cols="5" md="3"> 
-                                            <v-text-field 
-                                            v-model="especie" 
-                                            :rules="especieRules" 
-                                            label="Especie de la Mascota" 
-                                            required 
-                                            ></v-text-field> 
-                                        </v-col> 
-                                    </v-row> 
+                            <template>
+                                <v-container class="mt-8">
+                                    <v-row>
+                                        <v-col cols="5" md="4">
                                     
-                                </v-container> 
+                                            <v-text-field v-model="nombre" :rules="nombreRules" label="Nombre Mascota"  
+                                                required></v-text-field>
+                                        </v-col>
 
-                            </template> 
+                                        <v-col cols="5" md="5">
+                                            <v-text-field v-model="especie" :rules="especieRules"
+                                                label="Especie de la Mascota" required></v-text-field>
+                                        </v-col>
+                                    </v-row>
+
+                                </v-container>
+
+                            </template>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
@@ -91,32 +89,50 @@
 
 import axios from 'axios';
 export default {
-    data: () => ({
-        valido: true, 
-        nombre: '', 
-        nombreRules: [ 
-            v => !!v || 'Nombre es requerido', 
-        ], 
-        especie: '', 
-        especieRules: [ 
-            v => !!v || 'Especie es requerido', 
-        ], 
-        
-        valid :false,
+    data:    ()  => ({
+        valido: true,
+        nombre: '',
+        nombreRules: [
+            v => !!v || 'Nombre es requerido',
+        ],
+        especie: '',
+        especieRules: [
+            v => !!v || 'Especie es requerido',
+        ],
 
-        notificacionExitosa: false, notificacionNoExitosa: false, 
+        valid: false,
+        mascotasCargadas: true,
+        notificacionExitosa: false, notificacionNoExitosa: false, errorMostrarMascotas: false,
         nombre: '', especie: '',
-        mascotas: [
-            { nombre: 'Chimichurri', especie: 'Perro', raza: 'Golden', imagen: '/Chimi.jpeg' },
-            { nombre: 'Qüiky', especie: 'Perro', raza: 'kilterrier', imagen: '/gato.jpg' },
-            { nombre: 'Chiturra', especie: 'Gato', raza: 'Balinés', imagen: '/perro.jpg' },
-            { nombre: 'Garfield', especie: 'Gato', raza: 'Gato exotico', imagen: '/Chimi.jpeg' },
-            { nombre: 'Peluza', especie: 'Conejo', raza: 'Hotot', imagen: '/gato.jpg' },
 
-        ]
+        
+        mascotas: []
     }),
+    created() {
+      this.obtenerMascotas()
+    },
     methods: {
-       
+        obtenerMascotas(){
+            axios.get('http://localhost:3000/buscarMascotas',{
+            }).then((res) => {
+                this.mascotas = []
+                let mascotas = JSON.stringify(res.data.mascotas)
+                let pet = JSON.parse(mascotas)
+                var i = 0;
+                for (i in pet) {
+                    var nuevaMascota = { nombre: pet[i].Nombre, especie: pet[i].Especie, imagen: '/logo.png' }
+                    this.mascotas.push(nuevaMascota)
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+                this.errorMostrarMascotas = true
+                this.notificacionExitosa = false
+                this.notificacionNoExitosa = false
+            });
+
+        },
+
         registrar() {
             axios.post('http://localhost:3000/registroMascota', {
                 nombre: this.nombre,
@@ -127,31 +143,39 @@ export default {
                     console.log(res.data)
                     console.log("Mascota registrada en el servidor")
                     this.notificacionExitosa = true
+                    this.notificacionNoExitosa = false
+                    this.errorMostrarMascotas = false
+                    var nuevaMascota = { nombre: this.nombre, especie: this.especie, imagen: '/logo.png' }
+                    this.mascotas.push(nuevaMascota)
+                    this.nombre = ''
+                    this.especie = ''
 
-                }else{
+                } else {
                     console.log(res)
                 }
             }).catch((err) => {
                 console.log(err)
                 console.log(err.res)
                 this.notificacionNoExitosa = true
+                this.notificacionNoExitosa = false
+                this.errorMostrarMascotas = false
 
             })
 
 
         },
-         validate() {
+        validate() {
             if (this.nombre == '' || this.especie == '') {
                 alert('Debe completar todos los campos');
             }
             else {
-                this.$store.state.dialog=false
+                this.$store.state.dialog = false
                 this.registrar();
-                this.nombre = ''
-                this.especie = ''
+                
             }
-        }
-    }
+        },
         
+    }
+
 }
 </script>

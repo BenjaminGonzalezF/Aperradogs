@@ -44,7 +44,7 @@
         $route: {
           immediate: true,
           handler(to) {
-            document.title = to.meta.title || 'Home - Mi Proyecto';
+            document.title = to.meta.title || 'Home - Aperradogs';
           }
         },
       },

@@ -7,6 +7,7 @@ const guardarMascota = async (datosNuevaMascota) => {
         Nombre: datosNuevaMascota.nombre,
         ID: id,
         Especie: datosNuevaMascota.especie,
+        Dueño: datosNuevaMascota.dueño,
     })
     nuevaMascota.save();
     console.log("Mascota guardada: ", nuevaMascota);
@@ -22,13 +23,18 @@ const obtenerNumeroMascotas = async () => {
 
 
 const mostrarMascotas = () => {
-    mascota.find({}, (err, Clientes) => {
+    mascota.find({}, (err, mascotas) => {
         if (err) {
             console.log('Error al mostrar los clientes');
         } else {
-            console.log(Clientes);
+            console.log(mascotas);
         }
     });
 };
 
-export { guardarMascota, mostrarMascotas };
+const buscarMascotasDB = async (email) => {
+    let mascotas = await mascota.find({ Dueño: email });
+    return mascotas;
+}
+
+export { guardarMascota, mostrarMascotas ,buscarMascotasDB};

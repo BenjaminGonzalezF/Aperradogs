@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/fichaClinica',
     name: 'admin',
-    component: FichaClinica
+    component: () => import('../components/FichaClinica.vue')
   },
 ]
 const router = new VueRouter({

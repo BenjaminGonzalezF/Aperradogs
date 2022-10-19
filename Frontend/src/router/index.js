@@ -4,6 +4,8 @@ import Home from '../components/Home.vue'
 import Nosotros from '../components/Nosotros.vue'
 import InicioSesion from '../components/InicioSesion.vue'
 import Principal from '../components/Principal.vue'
+import FichaClinica from '../components/FichaClinica.vue'
+
 Vue.use(VueRouter)
 const routes = [
   {
@@ -27,6 +29,7 @@ const routes = [
     component: Principal
   },
   {
+    
     path: '/ingreso',
     name: 'login',
     component: () => import('../views/Login.vue')
@@ -35,7 +38,11 @@ const routes = [
     name: 'usuario',
     component: () => import('../views/VistaUsuario.vue')
   },
- 
+  {
+    path: '/fichaClinica',
+    name: 'admin',
+    component: FichaClinica
+  },
 ]
 const router = new VueRouter({
   routes

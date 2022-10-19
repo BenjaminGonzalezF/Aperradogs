@@ -5,6 +5,8 @@ import Nosotros from '../components/Nosotros.vue'
 import InicioSesion from '../components/InicioSesion.vue'
 import Principal from '../components/Principal.vue'
 import Calendario from '../components/PrincipalUsuario/Calendario.vue'
+import FichaClinica from '../components/FichaClinica.vue'
+
 Vue.use(VueRouter)
 const routes = [
   {
@@ -28,6 +30,7 @@ const routes = [
     component: Principal
   },
   {
+    
     path: '/ingreso',
     name: 'login',
     component: () => import('../views/Login.vue')
@@ -45,6 +48,11 @@ const routes = [
     path: '/calendarioAdmin',
     name: 'CalendarioAdmin',
     component: () => import('../components/PrincipalUsuario/CalendarioAdmin.vue')
+  },
+  {
+    path: '/fichaClinica',
+    name: 'admin',
+    component: FichaClinica
   },
 ]
 const router = new VueRouter({
